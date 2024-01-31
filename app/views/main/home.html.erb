@@ -1,2 +1,9 @@
-<h1>Main#home</h1>
-<p>Find me in app/views/main/home.html.erb</p>
+<h1>Welcome, <%= current_user.username %>! </h1>
+
+<br>
+<div class="text-center">
+  <h5>Number of sales made: <%= @number_of_sales %></h5>
+  <h5>Total amount of sales revenue: <%= @total_sales_revenue %> </h5>
+  <h5>Best selling product: <%= @best_selling_product.name %> </h5>
+</div>
+

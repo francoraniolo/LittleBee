@@ -26,6 +26,10 @@
               <span class="text-success fw-bold"> <%= quantity_on_list %> Added </span>
             <% end %>
           <% end %>
+
+          <% if quantity_on_list > 0 %>
+            <%= button_to 'Remove', purchase_item_path(current_user.current_purchase.purchase_items.find_by(product: product)), method: :delete, remote: true, class: 'btn btn-danger' %>
+          <% end %>
         </div>
       </div>
     </div>

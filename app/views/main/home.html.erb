@@ -1,9 +1,10 @@
-<h1>Welcome, <%= current_user.username %>! </h1>
+<div class="container mt-5 bg-white p-4 rounded shadow">
+    <h1 class="text-center text-primary mb-4">Welcome, <%= current_user.username %>!</h1>
 
-<br>
-<div class="text-center">
-  <h5>Number of sales made: <%= @number_of_sales %></h5>
-  <h5>Total amount of sales revenue: <%= @total_sales_revenue %> </h5>
-  <h5>Best selling product: <%= @best_selling_product.name %> </h5>
+    <div class="text-center">
+        <h5 class="mb-3">Number of sales made: <span class="badge bg-primary"><%= @number_of_sales %></span></h5>
+        <h5 class="mb-3">Total amount of sales revenue: <span class="badge bg-success">$ <%= @total_sales_revenue %></span></h5>
+        <h5>Best selling product: <span class="badge bg-warning text-dark"><%= @best_selling_product.name %></span></h5>
+    </div>
 </div>
 

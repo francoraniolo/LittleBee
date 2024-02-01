@@ -1,20 +1,23 @@
 <%= turbo_frame_tag "product_#{product.id}" do %>
-  <div class="col">
+  <div class="col-md-3">
     <div class="card text-bg-dark mb-3" style="width: 12rem; height: 21rem; margin: 0.2rem;">
      <% quantity_on_list = current_user.current_purchase.find_quantity_from_item(product) %>
-      <a href="/products/<%= product.id %>">
-        <% if product.image.attached? %>
-          <%= image_tag product.image, class: "card-img-top", alt: product.name, width: 100, height: 150 %>
-        <% else %>
-          <p class="text-center">No image available</p>
+      <%= link_to "/products/#{product.id}", data: { turbo_frame: "product_#{product.id}" } do %>
+        <%= turbo_frame_tag "product_image_#{product.id}" do %>
+          <% if product.image.attached? %>
+            <%= image_tag product.image, class: "card-img-top", alt: product.name, width: 100, height: 150 %>
+          <% else %>
+            <p class="text-center">No image available</p>
+          <% end %>
         <% end %>
-      </a>
+      <% end %>
       <div class="card-body d-flex flex-column">
         <h6 class="card-title"> <%= product.name %>
-        <% if quantity_on_list > 0 %>
-            <span class="text-success fw-bold mt-auto"> ( <%= quantity_on_list %> Added )</span>
-          <% end %>
         </h6>
+         <% if quantity_on_list > 0 %>
+            <span class="text-success fw-bold mt-auto"> ( <%= quantity_on_list %> Added )</span>
+            <%= button_to 'Remove', purchase_item_path(current_user.current_purchase.purchase_items.find_by(product: product)), method: :delete, remote: true, class: 'btn btn-danger btn-sm' %>
+          <% end %>
         <p class="card-text"> $ <%= product.price %></p>
 
         <%= form_for product.purchase_items.new, url: purchase_items_path, method: :post, remote: true, html: { id: "purchase_item_form_#{product.id}" } do |f| %>
@@ -25,12 +28,6 @@
               <%= f.submit '+', class: 'btn btn-outline-secondary add-button', id: "addButton_#{product.id}" %>
             </div>
           </div>
-        <% end %>
-
-        <% if quantity_on_list > 0 %>
-        <div class="d-flex justify-content-end">
-              <%= button_to 'Remove', purchase_item_path(current_user.current_purchase.purchase_items.find_by(product: product)), method: :delete, remote: true, class: 'btn btn-danger btn-sm' %>
-        </div>
         <% end %>
       </div>
     </div>

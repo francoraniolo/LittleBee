@@ -6,9 +6,19 @@ class PurchaseItemsController < ApplicationController
 
     if @purchase_item.save
       @purchase.update!(total_price: @purchase.total_price + (product.price * params[:purchase_item][:quantity].to_i))
-      redirect_to products_path, notice: 'Product added to current purchase.'
+
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("product_#{product.id}", partial: 'products/product', locals: { product: product }),
+            turbo_stream.update("total_price", partial: 'layouts/total_price', locals: { purchase: @purchase })
+          ]
+        end
+        format.html { redirect_to products_path, notice: 'Product added to current purchase.' }
+      end
     else
       render :new
     end
   end
 end
+

@@ -2,6 +2,8 @@
     <%= link_to 'Check list of items', purchase_path(current_user.current_purchase), class: 'btn btn-primary ms-3' %>
     <div class="ms-auto d-flex align-items-center">
          <%= button_to 'Register Sale', register_sale_purchase_path(current_user.current_purchase), method: :post, class: 'btn btn-success me-3' %>
+        <%= turbo_frame_tag "total_price" do %>
         <span class="navbar-brand mb-0 h1">Total $ <%= current_user.current_purchase.total_price %> </span>
+        <% end %>
     </div>
 </nav>

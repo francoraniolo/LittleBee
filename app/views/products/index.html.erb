@@ -1,8 +1,7 @@
 <h1>Catalog</h1>
-
+<br>
 <ul>
   <% @products.each do |product| %>
-
     <div class="card text-bg-dark mb-3" style="width: 12rem;">
       <a href="/products/<%= product.id %>">
       <% if product.image.attached? %>
@@ -14,7 +13,34 @@
       <div class="card-body">
         <h5 class="card-title"> <%= product.name %> </h5>
         <p class="card-text"> $ <%= product.price %></p>
+
+        <% quantity_on_list = current_user.current_purchase.find_quantity_from_item(product) %>
+        <%= form_for product.purchase_items.new, url: purchase_items_path, method: :post, remote: true do |f| %>
+        <%= f.hidden_field :product_id, value: product.id %>
+        <div class="input-group mb-3">
+          <%= f.number_field :quantity, value: 0, class: 'form-control', min: 0 %>
+          <div class="input-group-append">
+            <%= f.submit '+', class: 'btn btn-outline-secondary', id: 'addButton', disabled: true %>
+          </div>
+        </div>
+         <% if quantity_on_list > 0 %>
+          <span class="text-success fw-bold"> <%= quantity_on_list %> Added </span>
+         <% end %>
+      <% end %>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var quantityInput = document.querySelector('#purchase_item_quantity');
+              var addButton = document.querySelector('#addButton');
+
+              quantityInput.addEventListener('input', function() {
+                addButton.disabled = quantityInput.value <= 0;
+              });
+            });
+         </script>
       </div>
     </div>
   <% end %>
 </ul>
+
+<%= render "layouts/bottombar" %>

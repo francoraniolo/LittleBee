@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   root 'main#home'
 
   resources :products
+
+  resources :purchases
+
+  resources :purchase_items, only: [:create, :update, :destroy]
 end

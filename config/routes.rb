@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :purchases do
     member do
       post 'register_sale'
+      get 'download'
+      get 'preview'
     end
   end
 

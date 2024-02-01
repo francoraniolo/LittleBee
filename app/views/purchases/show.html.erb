@@ -35,3 +35,7 @@
 <% else %>
   <p>No items in this purchase.</p>
 <% end %>
+
+<%= link_to "Download", download_purchase_path(purchase_id: @purchase.id) %>
+<%= link_to "Preview", preview_purchase_path(purchase_id: @purchase.id) %>
+

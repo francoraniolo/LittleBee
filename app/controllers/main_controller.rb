@@ -8,15 +8,15 @@ class MainController < ApplicationController
   private
 
   def sales
-    @sales = Purchase.all
+    @sales = Purchase.all.active
   end
 
   def number_of_sales
-    sales.active.size
+    sales.size
   end
 
   def total_sales_revenue
-    PurchaseItem.all.sum { |purchase_item| purchase_item.total_price }
+    sales.sum { |purchase| purchase.total_price }
   end
 
   def best_selling_product

@@ -5,6 +5,6 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   def units_sold
-    purchase_items.sum(:quantity)
+    purchase_items.joins(:purchase).where(purchases: { active: true }).sum(:quantity)
   end
 end

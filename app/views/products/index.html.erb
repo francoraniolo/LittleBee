@@ -1,46 +1,37 @@
 <h1>Catalog</h1>
 <br>
-<ul>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-1">
   <% @products.each do |product| %>
-    <div class="card text-bg-dark mb-3" style="width: 12rem;">
-      <a href="/products/<%= product.id %>">
-      <% if product.image.attached? %>
-        <%= image_tag product.image, class: "card-img-top", width: 150, height: 150, alt: product.name %>
-      <% else %>
-        <p>No image available</p>
-      <% end %>
-      </a>
-      <div class="card-body">
-        <h5 class="card-title"> <%= product.name %> </h5>
-        <p class="card-text"> $ <%= product.price %></p>
+    <div class="col">
+      <div class="card text-bg-dark" style="width: 12rem; margin: 0.2rem;">
+        <a href="/products/<%= product.id %>">
+          <% if product.image.attached? %>
+            <%= image_tag product.image, class: "card-img-top", alt: product.name, width: 100, height: 150 %>
+          <% else %>
+            <p class="text-center">No image available</p>
+          <% end %>
+        </a>
+        <div class="card-body">
+          <h5 class="card-title"> <%= product.name %> </h5>
+          <p class="card-text"> $ <%= product.price %></p>
 
-        <% quantity_on_list = current_user.current_purchase.find_quantity_from_item(product) %>
-        <%= form_for product.purchase_items.new, url: purchase_items_path, method: :post, remote: true do |f| %>
-        <%= f.hidden_field :product_id, value: product.id %>
-        <div class="input-group mb-3">
-          <%= f.number_field :quantity, value: 0, class: 'form-control', min: 0 %>
-          <div class="input-group-append">
-            <%= f.submit '+', class: 'btn btn-outline-secondary', id: 'addButton', disabled: true %>
-          </div>
+          <% quantity_on_list = current_user.current_purchase.find_quantity_from_item(product) %>
+          <%= form_for product.purchase_items.new, url: purchase_items_path, method: :post, remote: true, html: { id: "purchase_item_form_#{product.id}" } do |f| %>
+            <%= f.hidden_field :product_id, value: product.id %>
+            <div class="input-group mb-3">
+              <%= f.number_field :quantity, value: 1, class: 'form-control purchase-item-quantity', min: 1 %>
+              <div class="input-group-append">
+                <%= f.submit '+', class: 'btn btn-outline-secondary add-button', id: "addButton_#{product.id}" %>
+              </div>
+            </div>
+            <% if quantity_on_list > 0 %>
+              <span class="text-success fw-bold"> <%= quantity_on_list %> Added </span>
+            <% end %>
+          <% end %>
         </div>
-         <% if quantity_on_list > 0 %>
-          <span class="text-success fw-bold"> <%= quantity_on_list %> Added </span>
-         <% end %>
-      <% end %>
-
-          <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              var quantityInput = document.querySelector('#purchase_item_quantity');
-              var addButton = document.querySelector('#addButton');
-
-              quantityInput.addEventListener('input', function() {
-                addButton.disabled = quantityInput.value <= 0;
-              });
-            });
-         </script>
       </div>
     </div>
   <% end %>
-</ul>
+</div>
 
 <%= render "layouts/bottombar" %>

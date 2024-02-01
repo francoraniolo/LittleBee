@@ -5,7 +5,7 @@ class PurchaseItemsController < ApplicationController
     @purchase_item = @purchase.add_product(product, params[:purchase_item][:quantity].to_i)
 
     if @purchase_item.save
-      @purchase.update!(total_price: @purchase.total_price + @purchase_item.total_price)
+      @purchase.update!(total_price: @purchase.total_price + (product.price * params[:purchase_item][:quantity].to_i))
       redirect_to products_path, notice: 'Product added to current purchase.'
     else
       render :new

@@ -144,6 +144,10 @@ GEM
     nokogiri (1.16.0-x64-mingw-ucrt)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pdf-core (0.9.0)
+    prawn (2.4.0)
+      pdf-core (~> 0.9.0)
+      ttfunk (~> 1.7)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -212,6 +216,7 @@ GEM
     stringio (3.1.0)
     thor (1.3.0)
     timeout (0.4.1)
+    ttfunk (1.7.0)
     turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -248,6 +253,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails
+  prawn (~> 2.4)
   puma (~> 5.0)
   rails (~> 7.0.8)
   selenium-webdriver

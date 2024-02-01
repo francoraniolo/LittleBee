@@ -3,6 +3,10 @@ class Purchase < ApplicationRecord
   has_many :purchase_items, dependent: :destroy
   has_many :products, through: :purchase_items
 
+  def self.active
+    where(active: true)
+  end
+
   def add_product(product, quantity)
     @purchase_item = find_or_create_purchase_item(product)
     @purchase_item.update(quantity: @purchase_item.quantity + quantity)

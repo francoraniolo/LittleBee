@@ -12,7 +12,7 @@ class MainController < ApplicationController
   end
 
   def number_of_sales
-    sales.size
+    sales.active.size
   end
 
   def total_sales_revenue

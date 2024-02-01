@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   resources :products
 
-  resources :purchases
+  resources :purchases do
+    member do
+      post 'register_sale'
+    end
+  end
 
   resources :purchase_items, only: [:create, :update, :destroy]
 end

@@ -1,0 +1,37 @@
+<h1>Purchase Details</h1>
+
+<div>
+<% if @purchase.active? %>
+  <p><strong>Date:</strong> <%= @purchase.updated_at %></p>
+<% end %>
+  <p><strong>Total Price:</strong> $<%= @purchase.total_price %></p>
+</div>
+
+<% if @purchase.active? %>
+<h2>Purchased Items</h2>
+<% else %>
+<h2>Added Items</h2>
+<% end %>
+
+<% if @purchase.purchase_items.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @purchase.purchase_items.each do |purchase_item| %>
+        <tr>
+          <td><%= purchase_item.product.name %></td>
+          <td><%= purchase_item.quantity %></td>
+          <td>$<%= purchase_item.total_price %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No items in this purchase.</p>
+<% end %>

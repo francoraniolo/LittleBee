@@ -40,9 +40,8 @@ class PurchasesController < ApplicationController
     pdf = Prawn::Document.new
 
     pdf.text "Your Purchase made on #{purchase.updated_at.strftime("%d/%m/%Y %H:%M")}", size:  20, style: :bold
-    pdf.text "Product Name - Quantity - Total Price"
     purchase.purchase_items.each do |item|
-      pdf.text "* #{item.product.name} - #{item.quantity} - #{item.total_price.to_f.round(2)}"
+      pdf.text "* #{item.product.name} - #{item.quantity} items - $#{item.total_price.to_f.round(2)}"
     end
 
     pdf.text "Total Price: #{purchase.total_price.to_f.round(2)}"

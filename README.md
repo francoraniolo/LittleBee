@@ -1,24 +1,14 @@
-# README
+# Purchases Registration App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to this Purchases Registration App! This project is built using Rails 7 and Turbo, showcasing the power of real-time updates without page refreshes. With this app, users can sign up, log in, explore product details, add products to a purchase, and efficiently register purchases.
 
-Things you may want to cover:
+## Features:
 
-* Ruby version
+1. **User Authentication:**
+   - Sign up and log in securely to access personalized features.
 
-* System dependencies
+2. **Real-Time Product Updates:**
+   - Explore product details and add products to your purchase without the need for page refreshes, thanks to Turbo.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+3. **Dynamic Purchase Registration:**
+   - Easily register your purchases, making the process seamless and user-friendly.
